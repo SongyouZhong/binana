@@ -190,8 +190,85 @@ sys.path.append('/path/to/binana/python/')
 import binana
 ```
 
-## 📞 Support
+## �️ Enhanced Toolkit (New!)
 
-This is a streamlined version. For the full original BINANA with web interface and JavaScript support, visit:
+We've added a convenient Python toolkit for easier integration:
+
+### Quick Start with Toolkit
+
+```python
+# Method 1: Simple analysis
+from binana_toolkit import analyze_binding
+results = analyze_binding('protein.pdbqt', 'ligand.pdbqt')
+print(results.head())
+
+# Method 2: Get interaction statistics
+from binana_toolkit import get_interaction_summary
+stats = get_interaction_summary('protein.pdbqt', 'ligand.pdbqt')
+print(f"Found {stats['total_interactions']} interactions")
+
+# Method 3: Find specific interaction types
+from binana_toolkit import find_key_residues
+hydrophobic_residues = find_key_residues('protein.pdbqt', 'ligand.pdbqt', 
+                                        'hydrophobic_contacts')
+```
+
+### Enhanced Command Line Tool
+
+```bash
+# New enhanced analyzer with better output
+python binding_analyzer.py -r protein.pdbqt -l ligand.pdbqt -o ./results/
+
+# Quiet mode for batch processing
+python binding_analyzer.py -r protein.pdbqt -l ligand.pdbqt --quiet
+
+# Skip CSV generation
+python binding_analyzer.py -r protein.pdbqt -l ligand.pdbqt --no-csv
+```
+
+### Toolkit Features
+
+- **Simple Python API**: Easy integration into existing workflows
+- **Flexible output options**: DataFrames, CSV files, or raw BINANA data
+- **Statistical summaries**: Quick interaction overviews
+- **Filtering capabilities**: Find specific interaction types
+- **Command-line interface**: Enhanced usability
+- **Error handling**: Robust validation and informative error messages
+
+### Example Usage
+
+```python
+from binana_toolkit import BindingAnalyzer
+
+# Create analyzer
+analyzer = BindingAnalyzer(show_output=False)
+
+# Run analysis
+results = analyzer.analyze('protein.pdbqt', 'ligand.pdbqt', './output/')
+
+# Access results
+print(f"Found {len(results['residue_summary'])} interactions")
+print(f"Key residues: {results['interaction_statistics']}")
+
+# Save to different formats
+results['residue_summary'].to_csv('my_results.csv')
+results['residue_summary'].to_excel('my_results.xlsx')
+```
+
+### File Structure
+
+```
+binana/
+├── binding_analyzer.py     # Main toolkit class
+├── quick_analysis.py       # Simple functions
+├── examples.py            # Usage examples
+├── __init__.py            # Package initialization
+├── binding_mode.py        # Original script (deprecated)
+└── python/                # Core BINANA functionality
+```
+
+## �📞 Support
+
+This is a streamlined version with enhanced Python toolkit. For the full original BINANA with web interface and JavaScript support, visit:
 - Original repository: [http://git.durrantlab.com/jdurrant/binana](http://git.durrantlab.com/jdurrant/binana)
 - Web application: [http://durrantlab.com/binana](http://durrantlab.com/binana)
